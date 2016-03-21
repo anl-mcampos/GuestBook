@@ -12,29 +12,36 @@ def read_file(filename):
 
 
 setup(
-  name='guestbook',
+  name='guestbook-pro',
   version='1.0.0',
-  description='A guestbook web application.',
+  description='An enterprise guestbook web application.',
   long_description=read_file('README.md'),
-  author='yhoshino11',
-  author_email='yhoshino11@gmail.com',
-  url='https://github.com/yhoshino11/GuestBook.git',
+  author='anl-mcampos',
+  author_email='fedhelp@anl.gov',
+  url='https://github.com/anl-mcampos/GuestBook.git',
   classifiers=[
-    'Development Status :: 4 - beta',
-    'Framework :: Flaskk',
-    'License :: MIT',
-    'Programming Language :: Python',
-    'Programming Language :: Python :: 2.7',
+      'Development Status :: 4 - beta',
+      'Framework :: Flask',
+      'License :: MIT',
+      'Programming Language :: Python',
+      'Programming Language :: Python :: 2.6',
+      'Programming Language :: Python :: 2.7',
+      'Programming Language :: Python :: 3',
+      'Programming Language :: Python :: 3.2',
+      'Programming Language :: Python :: 3.3',
+      'Programming Language :: Python :: 3.4',
+      'Programming Language :: Python :: 3.5'
   ],
   packages=find_packages(),
   include_package_data=True,
-  keywords=['web', 'guestbook'],
+  keywords=['web', 'guestbook', 'anl'],
   license='MIT License',
   install_requires=[
     'Flask',
   ],
-  entry_points="""
-    [console_scripts]
-    guestbook = guestbook:main
-  """,
+  entry_points={
+      'console_scripts': [
+          'guestbook = guestbook:main',
+      ]
+  }
 )
