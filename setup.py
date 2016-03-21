@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 
 def read_file(filename):
-    basepath = os.path.dirname(os.path.dirname(__file__))
+    basename = os.path.dirname(os.path.dirname(__file__))
     filepath = os.path.join(basename, filename)
     if os.path.exists(filepath):
         return open(filepath).read()
