@@ -15,15 +15,15 @@ Post = namedtuple('Post', ['name', 'timestamp', 'comment'])
 
 def save_post(name, timestamp, comment):
     with closing(shelve.open(DATA_FILE)) as database:
-        greeting_list = database.get('greeting_list', deque())
-        assert isinstance(greeting_list, deque)
-        greeting_list.appendleft(Post(name, timestamp, comment))
-        database['greeting_list'] = greeting_list
+        posts = database.get('posts', deque())
+        assert isinstance(posts, deque)
+        posts.appendleft(Post(name, timestamp, comment))
+        database['posts'] = posts
 
 
 def load_posts():
     with closing(shelve.open(DATA_FILE)) as database:
-        return database.get('greeting_list', [])
+        return database.get('posts', [])
 
 
 @application.route('/')
