@@ -40,8 +40,8 @@ def index():
 
 @application.route('/post', methods=['POST'])
 def post():
-    name      = request.form.get('name')
-    comment   = request.form.get('comment')
+    name = request.form.get('name')
+    comment = request.form.get('comment')
     create_at = datetime.now()
     save_data(name, comment, create_at)
     return redirect('/')
