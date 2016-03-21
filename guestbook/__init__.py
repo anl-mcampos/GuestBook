@@ -19,13 +19,13 @@ def save_post(name, timestamp, comment):
     posts = load_posts()
     assert isinstance(posts, deque)
     posts.appendleft(Post(name, timestamp, comment))
-    with open(DATA_FILE) as f:
+    with open(DATA_FILE, 'wb') as f:
         pickle.dump(posts, f)
 
 
 def load_posts():
     try:
-        with open(DATA_FILE) as f:
+        with open(DATA_FILE, 'rb') as f:
             return pickle.load(f)
     except IOError:
         return deque()
