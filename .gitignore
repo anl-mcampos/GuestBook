@@ -63,3 +63,6 @@ target/
 venv/
 
 # Created by .ignore support plugin (hsz.mobi)
+
+# guestbook
+guestbook.dat
