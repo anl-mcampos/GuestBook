@@ -25,7 +25,7 @@ def load_posts():
 
 @application.route('/')
 def index():
-    return render_template('index.html', greeting_list=load_posts())
+    return render_template('index.html', posts=load_posts())
 
 
 @application.route('/post', methods=['POST'])
