@@ -1,6 +1,6 @@
 # coding: utf-8
 import shelve
-
+from contextlib import closing
 from datetime import datetime
 
 from flask import Flask, request, render_template, redirect, escape, Markup
@@ -11,24 +11,22 @@ DATA_FILE = 'guestbook.dat'
 
 
 def save_data(name, comment, create_at):
-    database = shelve.open(DATA_FILE)
-    if 'greeting_list' not in database:
-        greeting_list = []
-    else:
-        greeting_list = database['greeting_list']
-    greeting_list.insert(0, {
-        'name':      name,
-        'comment':   comment,
-        'create_at': create_at
-    })
-    database['greeting_list'] = greeting_list
-    database.close()
+    with closing(shelve.open(DATA_FILE)) as database:
+        if 'greeting_list' not in database:
+            greeting_list = []
+        else:
+            greeting_list = database['greeting_list']
+        greeting_list.insert(0, {
+            'name':      name,
+            'comment':   comment,
+            'create_at': create_at
+        })
+        database['greeting_list'] = greeting_list
 
 
 def load_data():
-    database = shelve.open(DATA_FILE)
-    greeting_list = database.get('greeting_list', [])
-    database.close()
+    with closing(shelve.open(DATA_FILE)) as database:
+        greeting_list = database.get('greeting_list', [])
     return greeting_list
 
 
