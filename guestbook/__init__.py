@@ -54,9 +54,9 @@ def datetime_fmt_filter(dt):
 @click.option('--debug', '-d', default=False, is_flag=True, help='run server in debug mode')
 def main(interface, port, debug):
     if interface not in netifaces.interfaces():
-        quit('error: interface "%s" not found in %s' % interface, netifaces.interfaces())
+        quit('error: interface "%s" not found in %s' % (interface, netifaces.interfaces()))
     iface = netifaces.ifaddresses(interface)
-    if len(ifaces[netifaces.AF_INET]) + len(ifaces[netifaces.AF_INET6]) == 0:
+    if len(iface[netifaces.AF_INET]) + len(iface[netifaces.AF_INET6]) == 0:
         quit('error: interface "%s" unbound to an IP address' % interface)
     if len(iface[netifaces.AF_INET]) > 0:
         ipaddr = iface[netifaces.AF_INET][0]['addr']
