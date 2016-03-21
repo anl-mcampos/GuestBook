@@ -43,7 +43,7 @@ setup(
   ],
   entry_points={
       'console_scripts': [
-          'guestbook = guestbook:main',
+          'guestbook-pro = guestbook:main',
       ]
   }
 )
