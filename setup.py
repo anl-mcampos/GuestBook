@@ -34,6 +34,7 @@ setup(
   ],
   packages=find_packages(),
   include_package_data=True,
+  zip_safe=False,
   keywords=['web', 'guestbook', 'anl'],
   license='MIT License',
   install_requires=[
