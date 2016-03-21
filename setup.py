@@ -37,7 +37,9 @@ setup(
   keywords=['web', 'guestbook', 'anl'],
   license='MIT License',
   install_requires=[
-    'Flask',
+      'Flask',
+      'click',
+      'netifaces'
   ],
   entry_points={
       'console_scripts': [
