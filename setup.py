@@ -20,7 +20,7 @@ setup(
   author_email='fedhelp@anl.gov',
   url='https://github.com/anl-mcampos/GuestBook.git',
   classifiers=[
-      'Development Status :: 4 - beta',
+      'Development Status :: 5 - Production/Stable',
       'Framework :: Flask',
       'License :: MIT',
       'Programming Language :: Python',
