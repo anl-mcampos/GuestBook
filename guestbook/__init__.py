@@ -1,6 +1,5 @@
 # coding: utf-8
-import shelve
-from contextlib import closing
+import pickle
 from datetime import datetime
 from collections import namedtuple, deque
 
@@ -14,16 +13,14 @@ Post = namedtuple('Post', ['name', 'timestamp', 'comment'])
 
 
 def save_post(name, timestamp, comment):
-    with closing(shelve.open(DATA_FILE)) as database:
-        posts = database.get('posts', deque())
-        assert isinstance(posts, deque)
-        posts.appendleft(Post(name, timestamp, comment))
-        database['posts'] = posts
+    posts = pickle.load(DATA_FILE)
+    assert isinstance(posts, deque)
+    posts.appendleft(Post(name, timestamp, comment))
+    pickle.dump(posts, DATA_FILE)
 
 
 def load_posts():
-    with closing(shelve.open(DATA_FILE)) as database:
-        return database.get('posts', [])
+    return pickle.load(DATA_FILE)
 
 
 @application.route('/')
