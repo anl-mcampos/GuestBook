@@ -1,6 +1,5 @@
 # coding: utf-8
 import pickle
-from os.path import exists
 from datetime import datetime
 from collections import namedtuple, deque
 
