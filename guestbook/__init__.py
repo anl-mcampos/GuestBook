@@ -49,13 +49,13 @@ def datetime_fmt_filter(dt):
 
 
 @click.command()
-@click.option('--interface', '-i', default='localhost', help='run server on this interface')
-@click.option('--port', '-p', default=8000, type=click.IntRange(1, 65535), help='run server on this TCP port')
+@click.option('--interface', '-i', default='localhost', help='run server on this interface [localhost]')
+@click.option('--port', '-p', default=8000, type=click.IntRange(1, 65535), help='run server on this TCP port [8000]')
 @click.option('--debug', '-d', default=False, is_flag=True, help='run server in debug mode')
 def main(interface, port, debug):
     if interface not in netifaces.interfaces():
         quit('error: interface "%s" not found in %s' % interface, netifaces.interfaces())
-    iface = netifaces.interfaces(interface)
+    iface = netifaces.ifaddresses(interface)
     if len(ifaces[netifaces.AF_INET]) + len(ifaces[netifaces.AF_INET6]) == 0:
         quit('error: interface "%s" unbound to an IP address' % interface)
     if len(iface[netifaces.AF_INET]) > 0:
