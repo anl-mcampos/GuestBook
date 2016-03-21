@@ -10,22 +10,16 @@ $ pip install guestbook-pro
 $ guestbook-pro
 ```
 
-### Updating Packages
+### Options
 ```sh
-  (.venv)$ virtualenv --clear .venv
-  (.venv)$ pip install -r requirements.txt
-```
+$ guestbook-pro --help
+Usage: guestbook-pro [OPTIONS]
 
-### Uploading PyPI
-```sh
-  $ python setup.py register
-  $ python setup.py sdist upload
-```
-
-### Alias
-```sh
-  $ python setup.py alias release register sdist upload
-  $ python setup.py release # uploading with just one arg!
+Options:
+  -i, --interface [lo|eth0|eth1]  listen on this interface [lo]
+  -p, --port INTEGER RANGE        listen on this TCP port [8000]
+  -d, --debug                     run server in debug mode
+  --help                          Show this message and exit.
 ```
 
 ### Version
