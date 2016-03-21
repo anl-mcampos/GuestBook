@@ -2,7 +2,7 @@
 import shelve
 from contextlib import closing
 from datetime import datetime
-from collections import namedtuple
+from collections import namedtuple, deque
 
 from flask import Flask, request, render_template, redirect, escape, Markup
 
@@ -15,8 +15,9 @@ Post = namedtuple('Post', ['name', 'timestamp', 'comment'])
 
 def save_post(name, timestamp, comment):
     with closing(shelve.open(DATA_FILE)) as database:
-        greeting_list = database.get('greeting_list', [])
-        greeting_list.insert(0, Post(name, timestamp, comment))
+        greeting_list = database.get('greeting_list', deque())
+        assert isinstance(greeting_list, deque)
+        greeting_list.appendleft(Post(name, timestamp, comment))
         database['greeting_list'] = greeting_list
 
 
