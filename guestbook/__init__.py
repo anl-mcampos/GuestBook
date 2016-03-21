@@ -1,5 +1,6 @@
 # coding: utf-8
 import pickle
+from os.path import exists
 from datetime import datetime
 from collections import namedtuple, deque
 
@@ -15,16 +16,19 @@ Post = namedtuple('Post', ['name', 'timestamp', 'comment'])
 
 
 def save_post(name, timestamp, comment):
-    with open(DATA_FILE) as df_handle:
-        posts = pickle.load(df_handle)
-        assert isinstance(posts, deque)
-        posts.appendleft(Post(name, timestamp, comment))
-        pickle.dump(posts, df_handle)
+    posts = load_posts()
+    assert isinstance(posts, deque)
+    posts.appendleft(Post(name, timestamp, comment))
+    with open(DATA_FILE) as f:
+        pickle.dump(posts, f)
 
 
 def load_posts():
-    with open(DATA_FILE) as df_handle:
-        return pickle.load(df_handle)
+    try:
+        with open(DATA_FILE) as f:
+            return pickle.load(f)
+    except IOError:
+        return deque()
 
 
 @app.route('/')
