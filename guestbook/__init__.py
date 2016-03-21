@@ -2,6 +2,7 @@
 import shelve
 from contextlib import closing
 from datetime import datetime
+from collections import namedtuple
 
 from flask import Flask, request, render_template, redirect, escape, Markup
 
@@ -9,39 +10,31 @@ application = Flask(__name__)
 
 DATA_FILE = 'guestbook.dat'
 
+Post = namedtuple('Post', ['name', 'timestamp', 'comment'])
 
-def save_data(name, comment, create_at):
+
+def save_post(name, timestamp, comment):
     with closing(shelve.open(DATA_FILE)) as database:
-        if 'greeting_list' not in database:
-            greeting_list = []
-        else:
-            greeting_list = database['greeting_list']
-        greeting_list.insert(0, {
-            'name':      name,
-            'comment':   comment,
-            'create_at': create_at
-        })
+        greeting_list = database.get('greeting_list', [])
+        greeting_list.insert(0, Post(name, timestamp, comment))
         database['greeting_list'] = greeting_list
 
 
-def load_data():
+def load_posts():
     with closing(shelve.open(DATA_FILE)) as database:
-        greeting_list = database.get('greeting_list', [])
-    return greeting_list
+        return database.get('greeting_list', [])
 
 
 @application.route('/')
 def index():
-    greeting_list = load_data()
-    return render_template('index.html', greeting_list=greeting_list)
+    return render_template('index.html', greeting_list=load_posts())
 
 
 @application.route('/post', methods=['POST'])
 def post():
     name = request.form.get('name')
     comment = request.form.get('comment')
-    create_at = datetime.now()
-    save_data(name, comment, create_at)
+    save_post(name, datetime.now(), comment)
     return redirect('/')
 
 

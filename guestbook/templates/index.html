@@ -28,7 +28,7 @@
     <div class="entries-area">
       <h2>Past posts</h2>
       {% for greeting in greeting_list %}
-        <h3>{{ greeting.name }}'s Post {{ greeting.create_at|datetime_fmt }}</h3>
+        <h3>{{ greeting.name }}'s Post {{ greeting.timestamp|datetime_fmt }}</h3>
         <p>{{ greeting.comment|nl2br }}</p>
       {% endfor %}
     </div>
