@@ -4,7 +4,7 @@ from datetime import datetime
 from collections import namedtuple, deque
 
 import click
-import netifaces
+from netifaces import ifaddresses, interfaces, AF_INET, AF_INET6
 from flask import Flask, request, render_template, redirect, escape, Markup
 
 app = Flask(__name__)
@@ -58,13 +58,13 @@ def datetime_fmt_filter(dt):
 @click.option('--port', '-p', default=8000, type=click.IntRange(1, 65535), help='run server on this TCP port [8000]')
 @click.option('--debug', '-d', default=False, is_flag=True, help='run server in debug mode')
 def main(interface, port, debug):
-    if interface not in netifaces.interfaces():
-        quit('error: interface "%s" not found in %s' % (interface, netifaces.interfaces()))
-    iface = netifaces.ifaddresses(interface)
-    if len(iface[netifaces.AF_INET]) + len(iface[netifaces.AF_INET6]) == 0:
+    if interface not in interfaces():
+        quit('error: interface "%s" not found in %s' % (interface, interfaces()))
+    iface = ifaddresses(interface)
+    if len(iface[AF_INET]) + len(iface[AF_INET6]) == 0:
         quit('error: interface "%s" unbound to an IP address' % interface)
-    if len(iface[netifaces.AF_INET]) > 0:
-        ipaddr = iface[netifaces.AF_INET][0]['addr']
+    if len(iface[AF_INET]) > 0:
+        ipaddr = iface[AF_INET][0]['addr']
     else:
-        ipaddr = iface[netifaces.AF_INET6][0]['addr']
+        ipaddr = iface[AF_INET6][0]['addr']
     app.run(ipaddr, port, debug)
