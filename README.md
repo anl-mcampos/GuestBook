@@ -1,5 +1,7 @@
 # GuestBook Pro
 
+An easy-to-install, easy-to-use guestbook web application, in which users (guests) may anonymously leave messages for all to see.
+
 ### Requirements
   - python
   - pip
